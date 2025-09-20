@@ -7,14 +7,18 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+
+    # Groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     running = True
     dt = 0
     black = (0, 0, 0)
 
     print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
 
     # Game loop
     while running:
@@ -23,8 +27,11 @@ def main():
                 running = False
 
         screen.fill(color=black)
-        player.update(dt)
-        player.draw(screen)
+        updatable.update(dt)
+
+        for d in drawable:
+            d.draw(screen)
+
         pygame.display.flip()
 
         # Limit framerate to 60 FPS
