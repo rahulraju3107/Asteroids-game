@@ -34,6 +34,7 @@ def main():
                 running = False
 
         updatable.update(dt)
+        screen.fill(color=black)
 
         for asteroid in asteroids:
             if asteroid.collision(player):
@@ -42,8 +43,6 @@ def main():
 
         for d in drawable:
             d.draw(screen)
-
-        screen.fill(color=black)
 
         pygame.display.flip()
 
