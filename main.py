@@ -1,3 +1,4 @@
+import sys
 import pygame
 from constants import *
 from player import Player
@@ -26,19 +27,23 @@ def main():
     dt = 0
     black = (0, 0, 0)
 
-    print("Starting Asteroids!")
-
     # Game loop
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        screen.fill(color=black)
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                print("Game over!")
+                sys.exit()
 
         for d in drawable:
             d.draw(screen)
+
+        screen.fill(color=black)
 
         pygame.display.flip()
 
